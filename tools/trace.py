@@ -77,7 +77,10 @@ if __name__ == '__main__':
         f"{file}.onnx",
         input_names=['input'],
         output_names=['output'],
-        opset_version=13
+        opset_version=13,
+        do_constant_folding=True,
+        dynamic_axes={'input' : {0 : 'batch_size'},
+                      'output' : {0 : 'batch_size'}}
     )
     onnx_model = onnx.load(f"{file}.onnx")
     onnx.checker.check_model(onnx_model)
